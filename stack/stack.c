@@ -12,23 +12,23 @@
 typedef struct _node {
     int val;
     struct _node* next;
-} Node;
+} node;
 
 typedef struct _stack {
     struct _node* head;
     int len;
-} Stack;
+} stack;
 
-Stack* create_stack(void) {
-    Stack* s = malloc(sizeof(Stack));
-    Node* n = malloc(sizeof(Node));
+stack* create_stack(void) {
+    stack* s = malloc(sizeof(stack));
+    node* n = malloc(sizeof(node));
     s->head = n;
     s->len = 0;
     return s;
 }
 
-Stack* add_node(Stack* s, int v) {
-    Node* new_node = malloc(sizeof(Node));
+stack* add_node(stack* s, int v) {
+    node* new_node = malloc(sizeof(node));
     new_node->val = v;
     
     if (s->len == 0) {
@@ -45,13 +45,13 @@ Stack* add_node(Stack* s, int v) {
     return s;
 }
 
-void print_stack(Stack* s) {
+void print_stack(stack* s) {
     if (s->len == 0) {
         printf("empty stack\n");
         return;
     }
     
-    Node* n = s->head;
+    node* n = s->head;
     for (int i = 0; i < s->len; i++) {
         printf("%i, ", n->val);
         n = n->next;
@@ -59,27 +59,27 @@ void print_stack(Stack* s) {
     printf("\n");
 }
 
-void free_stack(Stack* s) {
+void free_stack(stack* s) {
     if (s->len == 0) {
         free(s);
         return;
     }
     
-    Node* n = s->head;
+    node* n = s->head;
     for (int i = 1; i < s->len; i++) {
-        Node* tmp = n->next;
+        node* tmp = n->next;
         free(n);
         n = tmp;
     }
     free(s);
 }
 
-int pop_stack(Stack* s) {
+int pop_stack(stack* s) {
     if (s->len == 0) {
         printf("stack empty\n");
         return 0;
     }
-    Node* next = s->head->next;
+    node* next = s->head->next;
     int val = s->head->val;
     free(s->head);
     s->head = next;
@@ -88,7 +88,7 @@ int pop_stack(Stack* s) {
     
 }
 
-int peek_stack(Stack* s) {
+int peek_stack(stack* s) {
     if (s->len == 0) {
         printf("stack empty\n");
         return 0;
@@ -98,7 +98,7 @@ int peek_stack(Stack* s) {
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    Stack* s = create_stack();
+    stack* s = create_stack();
     for (int i = 0; i < 3; i++) {
         add_node(s, i);
     }
