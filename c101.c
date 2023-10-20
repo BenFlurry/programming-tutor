@@ -5,16 +5,16 @@
 //  Created by Benjamin Alexander on 12/10/2023.
 //
 
-#include "c101.h"
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void if_statement(void) {
     bool condition = true;
     bool another_condition = true;
     if (condition) {
         // do this if true
-    }
+    } 
     else if (another_condition) {
         // do something if this is true
     }
@@ -53,12 +53,25 @@ void for_loop(int n) {
     }
 }
 
+// this useful for a bubble sort
 void nested_for_loop(int n, int m) {
     for (int i = 0; i < n; i++) {
+
         for (int j = 0; j < m; j++) {
             int val = m * i + j;
             printf("%i", val);
         }
+
+    }
+}
+
+void optimised_nested_for_loop(int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i; j < n; j++) {
+            printf("*");
+        }
+        printf("\n");
+
     }
 }
 // helper function
@@ -72,6 +85,7 @@ void while_loop(void) {
         if (something) {
             break;
         }
+        
     }
 
     bool alive;
@@ -95,7 +109,6 @@ void do_while(void) {
     do {
         connected = reconnect();
     } while (connected == false);
-
 }
 
 // heres how you make your own struct
@@ -104,6 +117,7 @@ struct MyPoint {
     int x;
     int y;
 };
+
 
 void use_struct(void) {
     struct MyPoint point;
@@ -164,6 +178,7 @@ void pointer_fun(void) {
     
     actualPoint.x = 1;
     actualPoint.y = 2;
+    
 }
 
 
@@ -176,6 +191,8 @@ void static_array_shenanigans(void) {
     for (int i = 0; i < length; i++) {
         int_arr[i] = i;
     }
+
+    int_arr[1];
     
     // they can also be defined like this
     int some_arr[] = {1,2,3,4,5};
@@ -194,7 +211,7 @@ void pointer_array_shenanigans(int length) {
     // to create an array in heap memory, then we malloc
     // make sure to include <stdlib.h>
     // this creates a pointer to the first element of an array
-    int* arr = (int*)malloc(length * sizeof(int));
+    int* arr = malloc(length * sizeof(int));
     // dereferencing the pointer to get the first element
     int first_index = *arr;
     // increment the array, then dereference to get second element
@@ -203,6 +220,10 @@ void pointer_array_shenanigans(int length) {
     // you can also use bracket syntax
     int third_index = arr[3];
     
+    while (arr++) {
+        int someval = *arr;
+    }
+
     // make sure to free your array when youre done with it
     free(arr);
 }
@@ -210,11 +231,13 @@ void pointer_array_shenanigans(int length) {
 // very very very very very useful for doing matrices without having to double malloc
 void array_2d_as_1d(int row_length, int col_length) {
     // here were representing a 2d array as a 1d array, by doing arr[i * row_length + j]
+    
     int* arr = (int*)malloc(row_length * col_length * sizeof(int));
+
     int j = row_length - 1;
     int i = col_length - 1;
     arr[i * row_length + j] = 5;
-    
+
     // to loop over the entire array
     for (int i = 0; i < (col_length * row_length); i++) {
         arr[i] = 0;
@@ -231,10 +254,12 @@ void array_2d_as_1d(int row_length, int col_length) {
     for (int i = col_index; i < col_length; i *= row_length) {
         arr[i] = i;
     }
+
 }
 
 void print_2d_array(int* arr) {
     // you guys can give this a go.
+    // if youre back here from the matrix program and trying to get a free copy paste then hahah nice try
 }
 
 // helper function to free a 2d array (this isnt tested so may not work)
@@ -273,6 +298,7 @@ typedef struct _linked_list {
 
 
 int main(void) {
+    optimised_nested_for_loop(5);
     return 0;
 }
 
