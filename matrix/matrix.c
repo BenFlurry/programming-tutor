@@ -11,6 +11,10 @@ matrix* zeros_matrix(matrix* m) {
 
 }
 
+void print_matrix(matrix* m) {
+
+}
+
 int get_rows(matrix* m) {
 
 }
@@ -20,10 +24,6 @@ int get_cols(matrix* m) {
 }
 
 int free_matrix(matrix* m) {
-
-}
-
-void print_matrix(matrix* m) {
 
 }
 

@@ -5,7 +5,6 @@
 //  Created by Benjamin Alexander on 02/09/2023.
 //
 
-#include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
 
