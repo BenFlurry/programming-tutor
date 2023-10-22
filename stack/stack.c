@@ -21,8 +21,7 @@ typedef struct _stack {
 
 stack* create_stack(void) {
     stack* s = malloc(sizeof(stack));
-    node* n = malloc(sizeof(node));
-    s->head = n;
+    s->head = NULL;
     s->len = 0;
     return s;
 }
@@ -70,7 +69,7 @@ void free_stack(stack* s) {
     }
     
     node* n = s->head;
-    for (int i = 1; i < s->len; i++) {
+    for (int i = 0; i < s->len; i++) {
         node* tmp = n->next;
         free(n);
         n = tmp;
@@ -109,11 +108,11 @@ int main(int argc, const char * argv[]) {
     for (int i = 0; i < 3; i++) {
         add_node(s, i);
     }
-    print_stack(s);
-    add_node(s, 6);
-    print_stack(s);
+    // print_stack(s);
+    // add_node(s, 6);
+    // print_stack(s);
     pop_stack(s);
-    print_stack(s);
+    // print_stack(s);
     free_stack(s);
     return 0;
     
