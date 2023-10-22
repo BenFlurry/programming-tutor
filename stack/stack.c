@@ -31,6 +31,8 @@ stack* add_node(stack* s, int v) {
     node* new_node = malloc(sizeof(node));
     new_node->val = v;
     
+    printf("added node %i\n", v);
+
     if (s->len == 0) {
         new_node->next = NULL;
         s->head = new_node;
@@ -46,6 +48,7 @@ stack* add_node(stack* s, int v) {
 }
 
 void print_stack(stack* s) {
+    printf("printing stack...\n");
     if (s->len == 0) {
         printf("empty stack\n");
         return;
@@ -53,13 +56,14 @@ void print_stack(stack* s) {
     
     node* n = s->head;
     for (int i = 0; i < s->len; i++) {
-        printf("%i, ", n->val);
+        printf("%i ", n->val);
         n = n->next;
     }
     printf("\n");
 }
 
 void free_stack(stack* s) {
+    printf("freeing stack\n");
     if (s->len == 0) {
         free(s);
         return;
@@ -76,7 +80,7 @@ void free_stack(stack* s) {
 
 int pop_stack(stack* s) {
     if (s->len == 0) {
-        printf("stack empty\n");
+        printf("stack empty, cannot pop\n");
         return 0;
     }
     node* next = s->head->next;
@@ -84,20 +88,23 @@ int pop_stack(stack* s) {
     free(s->head);
     s->head = next;
     s->len--;
+    printf("popped %i off of stack\n", val);
     return val;
     
 }
 
 int peek_stack(stack* s) {
     if (s->len == 0) {
-        printf("stack empty\n");
+        printf("stack empty, nothing to peekl\n");
         return 0;
     }
-    return s->head->val;
+    int v = s->head->val;
+    printf("popped %i off of stack", v);
+
+    return v;
 }
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
     stack* s = create_stack();
     for (int i = 0; i < 3; i++) {
         add_node(s, i);
