@@ -1,21 +1,25 @@
 typedef struct _queue {
     node* head;
+    node* tail;
     int len;
 } queue;
 
 typedef struct _node {
     struct _node* next;
+    struct _node* prev;
     int val;
 } node;
 
 queue* create_queue();
 
-queue* enqueue(int val);
+queue* enqueue(queue* q, int val);
 
-void print_queue();
+int dequeue(queue* q, int val);
 
-int dequeue();
+void free_queue(queue* q);
 
-int get_len();
+void print_queue_from_head(queue* q);
 
-int peek();
+void print_queue_from_tail(queue* q);
+
+int get_len(queue* q);
