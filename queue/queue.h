@@ -1,6 +1,6 @@
 typedef struct _queue {
-    node* head;
-    node* tail;
+    struct _node* head;
+    struct _node* tail;
     int len;
 } queue;
 
@@ -14,7 +14,7 @@ queue* create_queue();
 
 queue* enqueue(queue* q, int val);
 
-int dequeue(queue* q, int val);
+int dequeue(queue* q);
 
 void free_queue(queue* q);
 
