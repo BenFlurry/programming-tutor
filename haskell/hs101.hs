@@ -52,17 +52,6 @@ caesarShift :: String -> Int -> [Char]
 caesarShift xs i = map (shiftChar i) xs
 
 {--
-how curring functions work
-say we have a function add x y
-functions in haskell can only take one parameter and return 1 value
-so how do we take in the 2 parameters for add x y
-well the function descriptor for add is:
-add :: (Num a) => a -> a -> a
-add x y
-under the hood, this calls add y (add x)
---}
-
-{--
 Haskell is a strongly typed language, meaning that.
 Eq: this type can be checked with another variable for equality (==, !=)
 Ord (inherits Eq): this type can be ordered (<, <=, >)
@@ -93,13 +82,35 @@ the $ operator is used to basically say, bracket everything past this point
 --}
 
 -- here is a function which doubles every number bigger than 3
-let result = map (*2) (filter (>3) [1..10])
+result xs = map (*2) (filter (>3) xs)
 
 -- so we can get rid of the last pair of brackets using the $ operator
-let result2 = map (*2) $ filter (>3) [1..10]
+result2 xs = map (*2) $ filter (>3) xs
 
 -- and using the . operator, we compose map (*2) and filter (>3) into its own function, then pass [1..10] into that using the $ operator
-let result3 = map (*2) . filter (>3) $ [1..10]
+result3 xs = map (*2) . filter (>3) $ xs
 
 
-    
+-- heres a cool interaction with currying
+result4 :: (Num a, Ord a) => [a] -> [a]
+result4 = map (*2) . filter (>3)
+
+{--
+how curring functions work
+say we have a function add x y
+functions in haskell can only take one parameter and return 1 value
+so how do we take in the 2 parameters for add x y
+well the function descriptor for add is:
+add :: (Num a) => a -> a -> a
+add x y
+under the hood, this calls add y (add x)
+--}
+
+-- how to define functions inside other functions
+filterWhere :: (Num a, Ord a) => [a] -> [a]
+filterWhere xs = filter fn xs where
+    fn x = x > 3 
+
+filterLambda :: (Num a, Ord a) => [a] -> [a]
+filterLambda xs = filter (\x -> x > 3) xs
+
