@@ -59,7 +59,7 @@ void print_queue_from_head(queue* q) {
 
     if (q->len == 0) printf("empty queue");
 
-    if (q->len == 1) printf("%i", q->tail->val);
+    if (q->len == 1) printf("%i", q->head->val);
 
     node* current = q->head;
     for (int i = 0; i < q->len; i++) {
@@ -74,6 +74,8 @@ void print_queue_from_tail(queue* q) {
 
     if (q->len == 0) printf("empty queue");
 
+    if (q->len == 1) printf("%i", q->head->val);
+
     node* current = q->tail;
     for(int i = 0; i < q->len; i++) {
         printf("%i, ", current->val);
@@ -83,6 +85,7 @@ void print_queue_from_tail(queue* q) {
 }
 
 void free_queue(queue* q) {
+
     node* current = q->head;
     while (current != NULL) {
         node* next = current->next;
@@ -91,4 +94,35 @@ void free_queue(queue* q) {
     }
 
     free(q);
+}
+
+void print_queue_from_head(queue* q) {
+    printf("printing queue from head: [");
+
+    if (q->len == 0) printf("empty queue");
+
+    if (q->len == 1) printf("%i", q->head->val);
+
+    node* current = q->head;
+    for (int i = 0; i < q->len; i++) {
+        printf("%i, ", current->val);
+        current = current->next;
+    }
+    printf("]\n");
+}
+
+void print_queue_from_tail(queue* q) {
+    printf("printing queue from head: [");
+
+    if (q->len == 0) printf("empty queue");
+
+    if (q->len == 1) printf("%i", q->head->val);
+
+
+    node* current = q->tail;
+    for(int i = 0; i < q->len; i++) {
+        printf("%i, ", current->val);
+        current = current->prev;
+    }
+    printf("]\n");
 }

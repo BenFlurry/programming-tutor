@@ -1,6 +1,7 @@
 #include "queue.h"
 #include <stdio.h>
 
+
 void empty_queue() {
     printf("----- testing empty queue -----\n");
     printf("creating queue\n");

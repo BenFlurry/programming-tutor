@@ -26,9 +26,9 @@ caseCondition condition anotherCondition =
 -- lets have some fun with some lists
 -- we dont have a for operator in haskell, so we use recursion
 
-incrementListWithRecursion :: [Int] -> [Int]
-incrementListWithRecursion [] = []
-incrementListWithRecursion (x:xs) = (x+1) : incrementListWithRecursion xs
+-- incrementListWithRecursion :: [Int] -> [Int]
+-- incrementListWithRecursion [] = []
+-- incrementListWithRecursion (x:xs) = incrementWithRecursion xs ++ [x]
 
 incrementListWithMapping :: [Int] -> [Int]
 incrementListWithMapping xs = map (+1) xs
@@ -42,13 +42,13 @@ filteringList xs = filter (<4) xs
 -- todo in lesson, have a function which doubles any number thats odd
 
 --passing functions in as parameters
-myMap :: (a -> a) -> [a] -> [a]
+myMap :: (Int -> Int) -> [Int] -> [Int]
 myMap func list = map func list
 
 shiftChar :: Int -> Char -> Char
 shiftChar i c = chr((mod(((ord c) - 97) + i) 26) + 97)
 
-caesarShift :: String -> Int -> [Char]
+caesarShift :: String -> Int -> String
 caesarShift xs i = map (shiftChar i) xs
 
 {--
@@ -75,8 +75,10 @@ insert x (Node y left right)
     | x <= y    = Node y (insert x left) right
     | otherwise = Node y left (insert x right)
 
+
 {--
-the . operator composes 2 functions together, i.e. map and filter to combine into 1 function which takes in a list
+the . operator composes 2 functions together, i.e. map and filter to combine 
+    into 1 function which takes in a list
 the $ operator is used to basically say, bracket everything past this point
 
 --}
@@ -93,8 +95,7 @@ result3 xs = map (*2) . filter (>3) $ xs
 
 -- heres a cool interaction with currying
 result4 :: (Num a, Ord a) => [a] -> [a]
-result4 = map (*2) . filter (>3)
-
+result4 = map (*2) . filter (>3) 
 {--
 how curring functions work
 say we have a function add x y
@@ -103,14 +104,19 @@ so how do we take in the 2 parameters for add x y
 well the function descriptor for add is:
 add :: (Num a) => a -> a -> a
 add x y
+add (add x) y
 under the hood, this calls add y (add x)
 --}
 
 -- how to define functions inside other functions
 filterWhere :: (Num a, Ord a) => [a] -> [a]
 filterWhere xs = filter fn xs where
-    fn x = x > 3 
+    fn x = 
+        let y = 3 in
+        x > y
 
 filterLambda :: (Num a, Ord a) => [a] -> [a]
 filterLambda xs = filter (\x -> x > 3) xs
+
+1 2 3 4 5
 

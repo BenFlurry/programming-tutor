@@ -1,0 +1,7 @@
+here are some common design patterns
+polymorphism -> school system
+composition -> car
+factory (singleton) -> encapsulates object creation (1 standard way of managing the creation of objects
+mvc -> standard tbh
+builder -> string builder (start simple and build a complex object sequentially, returning with toString())
+chain of command -> logging (error gets passed, handled, or exited along chain of command)
