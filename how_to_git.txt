@@ -76,6 +76,8 @@ for the love of god never push to master, make a new branch then open up a PR
 
 branches should be small and frequently merged back into master, dont end up having a branch per person that makes there 3 versions of the same app
 
+setup a .gitignore and add any folder such as venv, .venv, .idea, .vscode etc. that are not relevant to the project so that theyre not tracked. dont push an entire venv to a github repo... trust me
+
 MAKE YOURE TEAMMATES ADOPT WHAT IVE SAID, IT WILL SAVE SO MUCH TIME AND HASSLE
 
 
