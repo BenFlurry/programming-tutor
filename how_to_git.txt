@@ -1,0 +1,85 @@
+Firstly, make a new repository on github, and add your teammates as collaborators
+then create a new folder on your local machine, wherever you want the repo to be
+in the console, setup the repo:
+
+git init // initialises git in your local directory
+** create and edit some files that you wish to be the basis of the repo **
+
+git add . // adds all files that have been created to tracking, you can run git status to ensure that all the files you want have been added
+
+git commit -m "<some useful commit message such as first commit>" // this commits the changes that have been made to the local repository
+
+git remote add origin https://github.com/yourusername/your-repository-name.git  // i reccommend just copying and pasting the link to the repository from your browser.
+git push -u origin main // this pushes your local repository changes to the remote repository
+
+
+when developing a feature:
+git checkout -b <branch-name>
+** develop some features **
+git add .
+git commit -m "<some message>"
+git push -u <branch-name>  // you only have to do the -u <branch-name> for the first time you push to this branch, otherwise do git push
+
+once the feature is complete, go onto the pull requests part of the repo, and there should be a button to open a pull request for your branch
+add a description of what the feature does, any testing that has been done, and on the right assign someone to review init
+
+when reviewing someones pull request, look at the code, click the plus icon next to a line you want to make a comment on
+common comments would be:
+- this line needs formatting, i reccommend: ...
+- this is innefficient, try doing this: ...
+- youve basically re-written <some-class/function> import and use that
+
+the other person will see this, and make their changes, push again and you review again
+once all changes have been made, if the branch was made for only 1 feature, then the reviewer should be able to just merge the branch on the pull request tab
+
+if there is a merge conflict, follow instructions on the command line, and accept either the main's version or the branch's version
+i reccommand using the github plugin on vscode, as this makes it very simple
+a conflict will look like this
+
+** some code **
+<============= HEAD ================
+** branch's version of some code **
+==================================
+** main's version of some code **
+<=============== MAIN =============
+
+if you dont want to use the vscode plugin, then simply remove the head part or remove the main part, or merge the 2 together in your text editor
+once that is done, git add <filename>, git commit "<merged some-file>", git push, then try and merge again on github
+
+common other git commands:
+git checkout <branch-name> to checkout someone elses branch, remember to git pull after to pull their remote changes
+
+git stash // stores any changes in a branch allowing you to swap to another branch without having to commit any changes that are not complete
+git stash pop // popps the changes off of the stash back into the branch that youre on, to restore the changes that were made
+git stash clear // clears the stash
+
+git reset --hard // ive done a big oopsy and want to go back to the previous commit i made, removing all changes that have been made
+git reset --soft // ive done a small oopsy. this removes any files from the commit that youre making, but the changes locally are still there
+
+git log // shows the commit history of your branch and main branch. each commit has a name and a hash, if you want to go back to a previous commit, copy that hash then..
+git checkout <hash> // paste the hash, then this will put you in detached head state, where the head of the branch is still at the top, but youre "visiting" an older commit
+if you want to make changes here, then use git switch -c <new-branch-name> and continue as if its a new branch
+
+git status // shows what files have been added to a commit, which has been edited, what files are untracked
+
+git diff // shows the difference between your changes and the previous commit
+
+GENERAL ADVICE:
+1 feature per branch
+only edit what you need, if you find an issue, then raise an issue on github, dont change it as it can make merge conflicts
+your overall design structure should be able to facilitate this kind of development. if you have lots of conflicts when developing and merging features, then your design of the project probably isnt good
+
+commit frequently, you can always go back, but you can never recover work you havent comitted.
+make your commit messages concise and useful, so you know what commit youre on if you have to go back
+
+for the love of god never push to master, make a new branch then open up a PR
+
+branches should be small and frequently merged back into master, dont end up having a branch per person that makes there 3 versions of the same app
+
+MAKE YOURE TEAMMATES ADOPT WHAT IVE SAID, IT WILL SAVE SO MUCH TIME AND HASSLE
+
+
+
+
+
+
