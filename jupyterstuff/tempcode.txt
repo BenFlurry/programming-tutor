@@ -1,0 +1,169 @@
+import timeit
+import string
+import random
+import matplotlib.pyplot as plt
+
+class TestDataGenerator(AbstractTestDataGenerator):
+    
+    def __init__(self):
+        print('created obj')
+
+        
+    def generateData(self, size):     
+        # ADD YOUR CODE HERE
+        data = []
+        
+        for _ in range(size):
+            s = ''
+            for _ in range(random.randint(1, 9)):
+                s += random.choice(string.ascii_lowercase + string.ascii_uppercase)
+                # data.append(random.choice((string.ascii_lowercase + string.ascii_uppercase)))
+            data.append(s)
+        # return s
+        return data
+
+
+class SyntheticTesting:
+    def __init__(self, min_size, max_size, step, repeats):
+        random.seed(0)
+        self.data = []
+        self.sizes = [int(i) for i in range(min_size, max_size+1, int((max_size-min_size)/step))]
+        self.timedict = {'best_sequential_insert': [],
+                         'worst_sequential_insert': [],
+                         'best_tree_insert': [],
+                         'worst_tree_insert': [],
+                         'best_balanced_insert': [],
+                         'worst_balanced_insert': [],
+                         'best_bloom_insert': [],
+                         'worst_bloom_insert': []}
+        
+        self.repeats = repeats
+
+    def generate_search_data(self, num):
+        self.search_data = [random.choice(self.unsorted_data) for _ in range(num)]
+
+
+    def generate_unsorted_data(self, size):
+        return [''.join(random.choices(string.ascii_lowercase, k=random.randint(1,9))) for _ in range(size)]
+        
+    
+    def generate_sorted_data(self, size):
+        return sorted([''.join(random.choices(string.ascii_lowercase, k=random.randint(1,9))) for _ in range(size)], reverse=True)
+
+    def generate_data_list(self, sorted=False):
+        if sorted:
+            self.sorted_data = [self.generate_sorted_data(size) for size in self.sizes]
+            return self.sorted_data
+        else:
+            self.unsorted_data = [self.generate_unsorted_data(size) for size in self.sizes]
+            return self.unsorted_data
+
+    def test_tree_search(self, data):
+        for d in data:
+            self.tree.searchElement(d)        
+
+    def test_set_insert(self, data):
+        self.set = SequentialSearchSet()
+        for d in data:
+            self.set.insertElement(d)
+
+    def test_tree_insert(self, data):
+        self.tree = BinarySearchTreeSet()
+        for d in data:
+            self.tree.insertElement(d)
+            # self.tree.insertElement(''.join(random.choices(string.ascii_lowercase, k=random.randint(1,9))))
+
+    def test_balanced_insert(self, data):
+        self.balanced = BalancedSearchTreeSet()
+        for d in data:
+            self.balanced.insertElement(d)
+
+    def test_bloom_insert(self, data):
+        self.bloom = BloomFilterSet()
+        for d in data:
+            self.balanced.insertElement(d)
+
+    def run_insert_tests(self, test_names):
+        # make sure the test names being passed in are valid
+        if not all(i in self.timedict.keys() for i in test_names):
+            return False
+        
+        self.generate_data_list(sorted=True)
+        self.generate_data_list(sorted=False)
+        
+        # need to make it generate data every time.
+        for test_name in test_names:
+            if test_name == 'worst_sequential_insert':
+                print(f'{test_name} test begun!')
+                self.timedict[test_name] = [timeit.timeit(lambda: self.test_set_insert(data), number=self.repeats) for data in self.generate_data_list(sorted=True)]
+                print(f'{test_name} test complete in {sum(self.timedict[test_name])} seconds!')
+
+            elif test_name == 'best_sequential_insert':
+                print(f'{test_name} test begun!')
+                self.timedict[test_name] = [timeit.timeit(lambda: self.test_set_insert(data), number=self.repeats) for data in self.generate_data_list(sorted=False)]
+                print(f'{test_name} test complete in {sum(self.timedict[test_name])} seconds!')
+
+            elif test_name == 'worst_tree_insert':
+                print(f'{test_name} test begun!')
+                self.timedict[test_name] = [timeit.timeit(lambda: self.test_tree_insert(data), number=self.repeats) for data in self.generate_data_list(sorted=True)]
+                print(f'{test_name} test complete in {sum(self.timedict[test_name])} seconds!')
+
+            elif test_name == 'best_tree_insert':
+                print(f'{test_name} test begun!')
+                self.timedict[test_name] = [timeit.timeit(lambda: self.test_tree_insert(data), number=self.repeats) for data in self.generate_data_list(sorted=False)]
+                print(f'{test_name} test complete in {sum(self.timedict[test_name])} seconds!')
+
+            elif test_name == 'worst_balanced_insert':
+                print(f'{test_name} test begun!')
+                self.timedict[test_name] = [timeit.timeit(lambda: self.test_balanced_insert(data), number=self.repeats) for data in self.generate_data_list(sorted=True)]
+                print(f'{test_name} test complete in {sum(self.timedict[test_name])} seconds!')
+
+            elif test_name == 'best_balanced_insert':
+                print(f'{test_name} test begun!')
+                self.timedict[test_name] = [timeit.timeit(lambda: self.test_balanced_insert(data), number=self.repeats) for data in self.generate_data_list(sorted=False)]
+                print(f'{test_name} test complete in {sum(self.timedict[test_name])} seconds!')
+
+            elif test_name == 'worst_bloom_insert':
+                print(f'{test_name} test begun!')
+                self.timedict[test_name] = [timeit.timeit(lambda: self.test_bloom_insert(data), number=self.repeats) for data in self.generate_data_list(sorted=True)]
+                print(f'{test_name} test complete in {sum(self.timedict[test_name])} seconds!')
+
+            elif test_name == 'best_bloom_insert':
+                print(f'{test_name} test begun!')
+                self.timedict[test_name] = [timeit.timeit(lambda: self.test_bloom_insert(data), number=self.repeats) for data in self.generate_data_list(sorted=False)]
+                print(f'{test_name} test complete in {sum(self.timedict[test_name])} seconds!')
+
+        self.plot_multi_graph()
+        return True
+
+
+    def plot_individual_graph(self, times, name):
+        plt.plot(self.sizes, times, 'o-')
+        plt.xlabel('Number of operations')
+        plt.ylabel('Time taken (seconds)')
+        plt.title(name)
+        plt.show()
+
+    def plot_multi_graph(self):
+        for key in self.timedict.keys():
+            times = self.timedict[key]
+            if times != []:
+                plt.plot(self.sizes, times, label=key)
+        plt.legend(loc='upper left')
+        plt.xlabel('Number of operations')
+        plt.ylabel('Time taken (seconds)')
+        plt.title('Comparison Graph')
+        plt.show()
+    
+
+test_list = ['best_tree_insert']
+test = SyntheticTesting(1, 10002, 10000, 1)
+test.testing_thing(10000)
+test.run_insert_tests(test_list)
+
+
+
+
+
+
+
