@@ -23,6 +23,17 @@ caseCondition condition anotherCondition =
         (_, True) -> "another conidition is true"
         otherwise -> "none of the coniditions are true"
 
+
+
+-- make me a default foldr with type signature to ge tthe length of a list
+-- find the length of a list using foldr
+foldr' ::(Num a, Int b) => (a -> b -> b) -> b -> [a] -> b
+
+lengthOfList :: [a] -> Int
+lengthOfList xs = foldr (\_ acc -> acc + 1) 0 xs
+[5, 6, 7, 8]
+
+
 -- lets have some fun with some lists
 -- we dont have a for operator in haskell, so we use recursion
 
@@ -95,7 +106,7 @@ result3 xs = map (*2) . filter (>3) $ xs
 
 -- heres a cool interaction with currying
 result4 :: (Num a, Ord a) => [a] -> [a]
-result4 = map (*2) . filter (>3) 
+result4 = map (*2) . filter (>3)
 {--
 how curring functions work
 say we have a function add x y

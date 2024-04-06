@@ -1,0 +1,6 @@
+for c:
+- pointers
+    - dereferencing
+    - while by increment the pointer value to get the next in arr
+    - using arrows when struct is declared as a pointer
+    - using dot when struct is declared in heap

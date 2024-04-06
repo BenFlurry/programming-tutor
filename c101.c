@@ -199,6 +199,12 @@ void static_array_shenanigans(void) {
     
     // somehow this **technically** works, but for the love of god dont.
     3[some_arr] = 10;
+    some_arr[3] = 10;
+
+    int arr1[3];
+    
+    int arr2[4];
+
     // since due to pointer logic, this takes the address number 5, then increments it by the address of the array
     // instead of taking the address of the array then incrementing 5
 }

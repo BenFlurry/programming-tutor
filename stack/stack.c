@@ -88,7 +88,6 @@ int pop_stack(stack* s) {
     s->len--;
     printf("popped %i off of stack\n", val);
     return val;
-    
 }
 
 int peek_stack(stack* s) {
@@ -116,6 +115,11 @@ int main(int argc, const char * argv[]) {
     return 0;
     
 }
+
+
+
+
+
 
 
 
