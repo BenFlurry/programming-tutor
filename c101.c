@@ -1,4 +1,5 @@
-//
+// /advent of code / leetcode/
+
 //  c101.c
 //  testc
 //
@@ -56,7 +57,6 @@ void for_loop(int n) {
 // this useful for a bubble sort
 void nested_for_loop(int n, int m) {
     for (int i = 0; i < n; i++) {
-
         for (int j = 0; j < m; j++) {
             int val = m * i + j;
             printf("%i", val);
@@ -120,7 +120,7 @@ struct MyPoint {
 
 
 void use_struct(void) {
-    struct MyPoint point;
+    struct MyPoint point = {5 , 6};
     point.x = 5;
     point.y = 6;
 }
@@ -141,7 +141,7 @@ typedef struct _point {
 // pointer fun :D
 void pointer_fun(void) {
     // this creates a pointer to the integer variable x
-    int* x;
+    int *x;
     // this just creates a normal variable integer x
     int y = 6;
     
@@ -181,7 +181,6 @@ void pointer_fun(void) {
     
 }
 
-
 // Now lets have some fun with arrays
 void static_array_shenanigans(void) {
     
@@ -217,7 +216,7 @@ void pointer_array_shenanigans(int length) {
     // to create an array in heap memory, then we malloc
     // make sure to include <stdlib.h>
     // this creates a pointer to the first element of an array
-    int* arr = malloc(length * sizeof(int));
+    int* arr = (int)malloc(length * sizeof(int));
     // dereferencing the pointer to get the first element
     int first_index = *arr;
     // increment the array, then dereference to get second element

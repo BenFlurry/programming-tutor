@@ -113,7 +113,7 @@ public class Main {
         // Or we could use a List
 
         // ArrayList is an implementation of the List interface.
-        List<Integer> list = new ArrayList<Integer>(List.of(1, 2, 3, 4, 5));
+        ArrayList<Integer> list = new ArrayList<Integer>(List.of(1, 2, 3, 4, 5));
 
         // Append
         list.add(6);

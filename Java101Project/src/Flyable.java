@@ -1,5 +1,5 @@
 public interface Flyable {
-    // The difference between an interface and abstract class:
+    // The difference between an interface a
     // a class can implement multiple interfaces, but only inherit 1 abstract class
     // interfaces groups empty method bodies, whereas an abstract class is more like a skeleton class to inherit from
     // interfaces are used in the case where inheritance doesnt make sense, however there are multiple implementations

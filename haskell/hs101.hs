@@ -27,34 +27,48 @@ caseCondition condition anotherCondition =
 
 -- make me a default foldr with type signature to ge tthe length of a list
 -- find the length of a list using foldr
-foldr' ::(Num a, Int b) => (a -> b -> b) -> b -> [a] -> b
+foldr' :: (Num a, Int b) => (a -> b -> b) -> b -> [a] -> b
+                        -- function        start  list   output
+def (Num: val1, Int:val2) 
 
 lengthOfList :: [a] -> Int
 lengthOfList xs = foldr (\_ acc -> acc + 1) 0 xs
+(lambda: x = x + 1)
+lengthOfList xs = foldr (incrementFunction) 0 xs where
+        incrementFunction x = incrementFunction + 1
 [5, 6, 7, 8]
 
+[1, 2, 3]
+3 : 2 : 1 : []
+3 + 2 + 1 + 0
 
 -- lets have some fun with some lists
 -- we dont have a for operator in haskell, so we use recursion
 
 -- incrementListWithRecursion :: [Int] -> [Int]
 -- incrementListWithRecursion [] = []
--- incrementListWithRecursion (x:xs) = incrementWithRecursion xs ++ [x]
+-- incrementListWithRecursion (x:xs) = incrementWithRecursion xs : [x+1]
+-- incrementListWithRecursion lst = incrementWithRecursion (tail lst) : [head lst]
+inc (start:restOfList)
 
 incrementListWithMapping :: [Int] -> [Int]
 incrementListWithMapping xs = map (+1) xs
 
 incrementListWithComprehension :: [Int] -> [Int]
-incrementListWithComprehension lst = [x+1 | x <- lst]
+incrementListWithComprehension xs = [x+1 | x <- xs]
+
+
 
 filteringList :: [Int] -> [Int]
 filteringList xs = filter (<4) xs
+[1..10]
 
 -- todo in lesson, have a function which doubles any number thats odd
 
 --passing functions in as parameters
 myMap :: (Int -> Int) -> [Int] -> [Int]
 myMap func list = map func list
+
 
 shiftChar :: Int -> Char -> Char
 shiftChar i c = chr((mod(((ord c) - 97) + i) 26) + 97)
@@ -79,9 +93,17 @@ Double (inherits FLoating): 64 bit float (15-17 d.p)
 
 -- heres how you define your own datatypes
 data Tree a = Empty | Node a (Tree a) (Tree a) deriving (Show, Eq)
+            A = val left tree right tree
+            a = node (2 tree (node 1) tree (node) 3)
+
 
 insert :: Ord a => a -> Tree a -> Tree a
 insert x Empty = Node x Empty Empty
+insert x Tree
+
+insert (x:xs)
+insert list
+
 insert x (Node y left right)
     | x <= y    = Node y (insert x left) right
     | otherwise = Node y left (insert x right)
@@ -103,10 +125,17 @@ result2 xs = map (*2) $ filter (>3) xs
 -- and using the . operator, we compose map (*2) and filter (>3) into its own function, then pass [1..10] into that using the $ operator
 result3 xs = map (*2) . filter (>3) $ xs
 
+result3 -> (result3) xs
+
+
+
+map (*2) . filter (>3)
 
 -- heres a cool interaction with currying
 result4 :: (Num a, Ord a) => [a] -> [a]
 result4 = map (*2) . filter (>3)
+f(g(x))
+f . g x
 {--
 how curring functions work
 say we have a function add x y
@@ -116,7 +145,7 @@ well the function descriptor for add is:
 add :: (Num a) => a -> a -> a
 add x y
 add (add x) y
-under the hood, this calls add y (add x)
+under the hood, this calls (add y (add x))
 --}
 
 -- how to define functions inside other functions
@@ -126,6 +155,7 @@ filterWhere xs = filter fn xs where
         let y = 3 in
         x > y
 
+        (\x -> x > 3)
 filterLambda :: (Num a, Ord a) => [a] -> [a]
 filterLambda xs = filter (\x -> x > 3) xs
 

@@ -3,6 +3,8 @@ public class modelFactory{
 
     public static Model getModel(String modelType){
         
+        if model isnt null
+
         return model;
     }
 

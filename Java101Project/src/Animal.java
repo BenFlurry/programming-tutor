@@ -30,3 +30,4 @@ public abstract class Animal {
     // this is an abstract method, meaning that any class inheriting this class has to implement the method
     public abstract void makeSound();
 }
+

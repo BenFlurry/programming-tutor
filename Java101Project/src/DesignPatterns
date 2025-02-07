@@ -7,5 +7,3 @@ builder -> string builder (start simple and build a complex object sequentially,
 chain of command -> logging (error gets passed, handled, or exited along chain of command)
 
 
-
-
